@@ -1,8 +1,17 @@
 import Circle from "../circle/Circle.js";
+import Levels from "../levels/Levels.js";
+import CreateLevelPath from "./CreateLevelPath.js";
 
 class Path {
     constructor() {
         this.circlesOnPath = [];
+        this.levels = new Levels();
+        this.currentLevel = this.levels.getLevel(0);
+
+        let createLevelPath = new CreateLevelPath();
+        createLevelPath.createGraphicPath(this.currentLevel.path);
+
+        console.log(this.currentLevel);
     }
 
     get getSpeed() {
