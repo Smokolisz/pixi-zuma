@@ -18,6 +18,10 @@ class Circle {
 
     constructor(color = null) {
         this.sprite = PIXI.Sprite.from('./img/circle.png');
+        this.sprite.x = -100;
+        this.sprite.y = -100;
+
+        this.path = null;
 
 
         if (color) {

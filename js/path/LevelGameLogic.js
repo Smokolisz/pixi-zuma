@@ -8,8 +8,11 @@ class Path {
         this.levels = new Levels();
         this.currentLevel = this.levels.getLevel(0);
 
-        let createLevelPath = new CreateLevelPath();
-        createLevelPath.createGraphicPath(this.currentLevel.path);
+        this.createLevelPath = new CreateLevelPath();
+        this.createLevelPath.createGraphicPath(this.currentLevel.path);
+
+        
+
 
         console.log(this.currentLevel);
     }
@@ -32,15 +35,30 @@ class Path {
             let currentCircle = this.circlesOnPath[i];
             
             if(i == 0) {
-                currentCircle.move(this.getSpeed * delta, 0 * delta);
-                prevCricle = currentCircle;
-                continue;
+                if(!currentCircle.path) {
+                    this.createLevelPath.assignPathToCircle(currentCircle, this.currentLevel.path);
+                    prevCricle = currentCircle;
+                    continue;
+                }
             }
 
-
-            if(Math.abs(currentCircle.getX - prevCricle.getX) > Circle.getSize) {
-                currentCircle.move(this.getSpeed * delta, 0 * delta);
+            if(!currentCircle.path && Math.abs(currentCircle.getX - prevCricle.getX) > Circle.getSize) {
+                this.createLevelPath.assignPathToCircle(currentCircle, this.currentLevel.path);
+            } else {
+                // currentCircle.path = false;
             }
+            
+
+            // if(i == 0) {
+            //     currentCircle.move(this.getSpeed * delta, 0 * delta);
+            //     prevCricle = currentCircle;
+            //     continue;
+            // }
+
+
+            // if(Math.abs(currentCircle.getX - prevCricle.getX) > Circle.getSize) {
+            //     currentCircle.move(this.getSpeed * delta, 0 * delta);
+            // }
 
             prevCricle = currentCircle;
         }
